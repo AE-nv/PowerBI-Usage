@@ -1,0 +1,45 @@
+table dim_reports
+	lineageTag: 29bf6fe3-8e7f-47bd-ba92-1b399f8d0836
+
+	column ReportId
+		dataType: string
+		lineageTag: 2415a6e0-647d-4f30-adb9-db1071e8a5ec
+		summarizeBy: none
+		sourceColumn: ReportId
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReportName
+		dataType: string
+		lineageTag: 3a18b4cf-b632-4b15-82e0-892270a93cae
+		summarizeBy: none
+		sourceColumn: ReportName
+
+		annotation SummarizationSetBy = Automatic
+
+	column LastUpdated
+		dataType: string
+		lineageTag: b55b8d63-269c-4711-80a7-5c1bb6c45951
+		summarizeBy: none
+		sourceColumn: LastUpdated
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Is TRUE for all reports that do not exist anymore.
+	column IsDeleted
+		dataType: string
+		lineageTag: e6bf733f-4eee-4c72-96b3-9750033b53c5
+		summarizeBy: none
+		sourceColumn: IsDeleted
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_reports = m
+		mode: import
+		source =
+				let
+				    Bron = Sql.Database(WarehouseHost, WarehouseDatabase),
+				    dbo_dim_reports = Bron{[Schema="dbo",Item="dim_reports"]}[Data]
+				in
+				    dbo_dim_reports
+

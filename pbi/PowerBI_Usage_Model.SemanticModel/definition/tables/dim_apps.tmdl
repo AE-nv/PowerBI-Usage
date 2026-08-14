@@ -1,0 +1,36 @@
+table dim_apps
+	lineageTag: 76bb9bc4-50d3-4284-817e-6c2b2f7aae7d
+
+	column AppId
+		dataType: string
+		lineageTag: 42c781e6-88a8-420c-8e65-7db960063646
+		summarizeBy: none
+		sourceColumn: AppId
+
+		annotation SummarizationSetBy = Automatic
+
+	column AppName
+		dataType: string
+		lineageTag: 1d2d5402-006c-424a-8586-57076463a58e
+		summarizeBy: none
+		sourceColumn: AppName
+
+		annotation SummarizationSetBy = Automatic
+
+	column LastUpdated
+		dataType: string
+		lineageTag: fc2548d6-be4e-4cf0-9566-c6361c5d63f4
+		summarizeBy: none
+		sourceColumn: LastUpdated
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_apps = m
+		mode: import
+		source =
+				let
+				    Bron = Sql.Database(WarehouseHost, WarehouseDatabase),
+				    dbo_dim_apps = Bron{[Schema="dbo",Item="dim_apps"]}[Data]
+				in
+				    dbo_dim_apps
+

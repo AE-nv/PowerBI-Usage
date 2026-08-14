@@ -1,0 +1,12 @@
+profile_env:
+  DBT_FABRIC_HOST: "<warehouse-sql-endpoint>"
+  DBT_FABRIC_DATABASE: "gold"
+  DBT_FABRIC_SCHEMA: "dbo"
+  DBT_FABRIC_AUTHENTICATION: "CLI"
+
+vars:
+  lakehouse_name: "bronze"
+  lakehouse_schema: "dbo"
+  activity_table_name: "pbi_activity_events"
+  reports_inventory_table_name: "pbi_current_reports_inventory"
+  licensed_users_table_name: "pbi_licensed_users"

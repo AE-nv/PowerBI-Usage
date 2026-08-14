@@ -1,0 +1,28 @@
+table dim_activity_types
+	lineageTag: c66dd8d5-b208-43f9-9812-f9a0804e68a6
+
+	column ActivityName
+		dataType: string
+		lineageTag: f55f460d-0610-48d6-a383-8dcece7b1a30
+		summarizeBy: none
+		sourceColumn: ActivityName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ActivityTypeName
+		dataType: string
+		lineageTag: 43cee4f9-111a-4a25-8dd4-a19153f70e17
+		summarizeBy: none
+		sourceColumn: ActivityTypeName
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_activity_types = m
+		mode: import
+		source =
+				let
+				    Bron = Sql.Database(WarehouseHost, WarehouseDatabase),
+				    dbo_dim_activity_types = Bron{[Schema="dbo",Item="dim_activity_types"]}[Data]
+				in
+				    dbo_dim_activity_types
+

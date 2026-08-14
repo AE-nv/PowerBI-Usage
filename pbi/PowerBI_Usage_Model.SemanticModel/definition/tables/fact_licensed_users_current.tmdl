@@ -1,0 +1,77 @@
+table fact_licensed_users_current
+	lineageTag: 02024112-65e3-4f23-8346-84f27001cd05
+
+	column UserId
+		dataType: string
+		lineageTag: ab64bec5-05e3-43e8-98be-77693fa41d4e
+		summarizeBy: none
+		sourceColumn: UserId
+
+		annotation SummarizationSetBy = Automatic
+
+	column UserKey
+		dataType: string
+		lineageTag: 8c9ce57d-9b20-48dd-b7ce-c5c9280d8f32
+		summarizeBy: none
+		sourceColumn: UserKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DisplayName
+		dataType: string
+		lineageTag: 1e390f08-4c2d-4360-8500-d5b87c9a293e
+		summarizeBy: none
+		sourceColumn: DisplayName
+
+		annotation SummarizationSetBy = Automatic
+
+	column UserPrincipalName
+		dataType: string
+		lineageTag: 7120f1bd-09a6-48af-912a-4c6ec80b894e
+		summarizeBy: none
+		sourceColumn: UserPrincipalName
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_activity_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 3dfd9bda-4dae-463b-8739-49e90b2733c6
+		summarizeBy: none
+		sourceColumn: last_activity_date
+
+		variation Variatie
+			isDefault
+			relationship: c0b4ea27-9686-4342-91db-c94a5c7e61ff
+			defaultHierarchy: LocalDateTable_272e5838-4892-46ec-82a6-5bcb287b3957.Datumhiërarchie
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column days_inactive
+		dataType: int64
+		formatString: 0
+		lineageTag: f2cb3a6d-f161-4682-9018-517579a42e4f
+		summarizeBy: sum
+		sourceColumn: days_inactive
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_activity_status
+		dataType: string
+		lineageTag: bc155cd8-0763-4c53-b84a-4f95f6e7bb43
+		summarizeBy: none
+		sourceColumn: user_activity_status
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_licensed_users_current = m
+		mode: import
+		source =
+				let
+				    Bron = Sql.Database(WarehouseHost, WarehouseDatabase),
+				    dbo_fact_licensed_users_current = Bron{[Schema="dbo",Item="fact_licensed_users_current"]}[Data]
+				in
+				    dbo_fact_licensed_users_current
+

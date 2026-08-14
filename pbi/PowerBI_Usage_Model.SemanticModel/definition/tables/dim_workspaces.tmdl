@@ -1,0 +1,36 @@
+table dim_workspaces
+	lineageTag: 6c828633-b94a-438b-ac72-54ea9fbc41eb
+
+	column WorkspaceId
+		dataType: string
+		lineageTag: 597e9cca-d654-4d1b-ab6f-0299b304d621
+		summarizeBy: none
+		sourceColumn: WorkspaceId
+
+		annotation SummarizationSetBy = Automatic
+
+	column WorkspaceName
+		dataType: string
+		lineageTag: 32a28dd4-7974-4d8c-b004-65c96add8684
+		summarizeBy: none
+		sourceColumn: WorkspaceName
+
+		annotation SummarizationSetBy = Automatic
+
+	column LastUpdated
+		dataType: string
+		lineageTag: 2a9763db-c703-4f52-8914-202f99f8b3bf
+		summarizeBy: none
+		sourceColumn: LastUpdated
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_workspaces = m
+		mode: import
+		source =
+				let
+				    Bron = Sql.Database(WarehouseHost, WarehouseDatabase),
+				    dbo_dim_workspaces = Bron{[Schema="dbo",Item="dim_workspaces"]}[Data]
+				in
+				    dbo_dim_workspaces
+

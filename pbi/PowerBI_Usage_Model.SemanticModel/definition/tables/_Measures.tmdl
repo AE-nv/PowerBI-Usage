@@ -1,0 +1,271 @@
+table _Measures
+	lineageTag: fce3a833-ed5f-44f7-9c72-552bc054d05c
+
+	/// Distinct count of users who viewed at least one report in the current filter context.
+	measure 'Number of Unique Report Viewers' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT(fact_activities[UserId]),
+			    dim_activity_types[ActivityTypeName] = "view"
+			)
+		formatString: 0
+		lineageTag: 4737e559-bedd-4d0a-b535-9d9ac2eccb78
+
+	/// Total number of report view events in the current filter context.
+	measure 'Number of Report Views' =
+			
+			CALCULATE(
+			    COUNT(fact_activities[UserId]),
+			    dim_activity_types[ActivityTypeName] = "view"
+			)
+		formatString: 0
+		lineageTag: 4e9986ba-19c2-49ac-bd30-138320777c82
+
+	/// Distinct count of dashboards available in the current filter context.
+	measure 'Number of Dashboards' =
+			
+			CALCULATE(
+			DISTINCTCOUNT(fact_activities[ReportId]),
+			-- to avoid counting deleted reports
+			REMOVEFILTERS('dim_date')
+			)
+		formatString: 0
+		lineageTag: b62a0dcd-222b-4c1b-aef2-037bb520048d
+
+	/// Distinct count of workspaces represented in the current filter context.
+	measure 'Number of Workspaces' = ```
+			
+			 CALCULATE(
+			DISTINCTCOUNT(fact_activities[WorkspaceId]),
+			REMOVEFILTERS('dim_date')
+			 )
+			```
+		formatString: 0
+		lineageTag: 4af004f4-181a-443e-95b3-f6498fbd00c1
+
+	/// Distinct count of apps represented in the current filter context.
+	measure 'Number of Apps' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT(fact_activities[AppId]),
+			    REMOVEFILTERS('dim_date')
+			)
+		formatString: 0
+		lineageTag: 0667bbcb-b845-496a-9187-1fc3ff778fea
+
+	/// Difference between report views in the mapped previous period bucket and the current selected period.
+	measure 'Number of Report Views Previous Period' = ```
+			
+			VAR SelectedPeriod = SELECTEDVALUE(dim_date[relative_period_bucket])
+			
+			VAR ViewsCurrentPeriod = [Number of Report Views]
+			
+			VAR PreviousPeriodBucket = 
+			SWITCH( 
+			    SelectedPeriod,
+			    "Last 3 months", "Last 6 months",
+			    "Last 6 months", "Last 1 year",
+			    "Last 1 year", "Last 2 years"
+			)
+			
+			VAR ViewsPreviousPeriodBucket =
+			CALCULATE(
+			    [Number of Report Views],
+			    REMOVEFILTERS(dim_date[relative_period_bucket]),
+			    dim_date[relative_period_bucket] = PreviousPeriodBucket
+			)
+			
+			
+			RETURN
+			ViewsPreviousPeriodBucket - ViewsCurrentPeriod
+			```
+		formatString: 0
+		lineageTag: db508557-2b79-411e-bb2b-9c5f463759a5
+
+	/// Difference between unique report viewers in the mapped previous period bucket and the current selected period.
+	measure 'Number of Unique Report Viewers Previous Period' = ```
+			
+			-- Previous Period is based on what is selected in the relative_period_bucket. 
+			VAR SelectedPeriod = SELECTEDVALUE(dim_date[relative_period_bucket])
+			
+			VAR ViewersCurrentPeriod = [Number of Unique Report Viewers]
+			
+			VAR PreviousPeriodBucket = 
+			SWITCH( 
+			    SelectedPeriod,
+			    "Last 3 months", "Last 6 months",
+			    "Last 6 months", "Last 1 year",
+			    "Last 1 year", "Last 2 years"
+			)
+			
+			VAR ViewersPreviousPeriodBucket =
+			CALCULATE(
+			    [Number of Unique Report Viewers],
+			    REMOVEFILTERS(dim_date[relative_period_bucket]),
+			    dim_date[relative_period_bucket] = PreviousPeriodBucket
+			)
+			
+			
+			RETURN
+			ViewersPreviousPeriodBucket - ViewersCurrentPeriod
+			```
+		formatString: 0
+		lineageTag: adc4d84c-8ef2-4a29-bab4-6c5aa203dd12
+
+	/// Percentage change in report views versus the mapped previous period.
+	measure 'Number of Views: Current Period vs Previous Period %' =
+			
+			([Number of Report Views] - [Number of Report Views Previous Period]) / [Number of Report Views Previous Period]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 57da1c39-b6ec-4639-a397-d31e17777cab
+
+	/// Percentage change in unique report viewers versus the mapped previous period.
+	measure 'Number of Unique Report Viewers: Current Period vs Previous Period %' =
+			
+			([Number of Unique Report Viewers] - [Number of Unique Report Viewers Previous Period]) / [Number of Unique Report Viewers Previous Period]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 0dbe1bf1-d5c5-4c2e-8641-8f16ab1ca270
+
+	/// Total number of export events in the current filter context.
+	measure 'Number of Exports' =
+			
+			CALCULATE(
+			    COUNTROWS(fact_activities),
+			    KEEPFILTERS(dim_activity_types[ActivityTypeName] = "export")
+			)
+		formatString: 0
+		lineageTag: 6801f7ac-ff37-46d2-acd3-75b89f06a586
+
+	/// Difference between exports in the mapped previous period bucket and the current selected period.
+	measure 'Number of Exports Previous Period' = ```
+			
+			VAR SelectedPeriod = SELECTEDVALUE(dim_date[relative_period_bucket])
+			
+			// Swap the base measure here to your new Export measure
+			VAR ExportsCurrentPeriod = [Number of Exports]
+			
+			VAR PreviousPeriodBucket = 
+			SWITCH( 
+			    SelectedPeriod,
+			    "Last 3 months", "Last 6 months",
+			    "Last 6 months", "Last 1 year",
+			    "Last 1 year", "Last 2 years"
+			)
+			
+			VAR ExportsPreviousPeriodBucket =
+			CALCULATE(
+			    [Number of Exports],
+			    REMOVEFILTERS(dim_date[relative_period_bucket]),
+			    dim_date[relative_period_bucket] = PreviousPeriodBucket
+			)
+			
+			RETURN
+			ExportsPreviousPeriodBucket - ExportsCurrentPeriod
+			```
+		formatString: 0
+		lineageTag: 125a79cf-867a-41ba-b103-de3c3b06e63e
+
+	/// Distinct count of users who exported at least one report in the current filter context.
+	measure 'Number of Unique Export Users' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT(fact_activities[UserId]),
+			    KEEPFILTERS(dim_activity_types[ActivityTypeName] = "export")
+			)
+		formatString: 0
+		lineageTag: 106b1360-100d-4169-82fa-74eb5cd17430
+
+	/// Highest number of distinct reports exported by a single user in the current filter context.
+	measure 'Max Unique Reports Exported by One User' =
+			
+			MAXX(
+			    VALUES(fact_activities[UserId]),
+			    CALCULATE(
+			        DISTINCTCOUNT(fact_activities[ReportId]),
+			        KEEPFILTERS(dim_activity_types[ActivityTypeName] = "export")
+			    )
+			)
+		formatString: 0
+		lineageTag: 4b78d839-d9a7-4760-ad7b-cfdc0dddbfe3
+
+	/// KPI helper measure that returns the current period total report views.
+	measure 'KPI Total Report Views' =
+			
+			CALCULATE(
+			    COUNTROWS(fact_activities),
+			    KEEPFILTERS(dim_activity_types[ActivityTypeName] = "view"),
+			    ALLSELECTED(dim_date)
+			)
+		formatString: 0
+		lineageTag: c980eda4-d97e-4c2f-940e-708c9df1a22f
+
+	/// KPI helper measure that returns the previous period variance for report views.
+	measure 'KPI Total Report Views Previous Period' = ```
+			
+			VAR CurrentPeriodDays = 
+			    COUNTROWS(ALLSELECTED(dim_date))
+			
+			VAR MaxCurrentDate = 
+			    MAX(dim_date[date_key])
+			
+			RETURN
+			CALCULATE(
+			    COUNTROWS(fact_activities),
+			    KEEPFILTERS(dim_activity_types[ActivityTypeName] = "view"),
+			    ALLSELECTED(dim_date),
+			    dim_date[date_key] > MaxCurrentDate - (2 * CurrentPeriodDays) 
+			        && dim_date[date_key] <= MaxCurrentDate - CurrentPeriodDays
+			)
+			```
+		formatString: 0
+		lineageTag: 1c4ff5ef-2a23-4de3-995c-d73b24db4ffe
+
+	/// Distinct count of users that currently hold a Power BI license.
+	measure 'Number of Licensed Users' = COUNTROWS ( fact_licensed_users_current )
+		formatString: 0
+		lineageTag: 1d4a4f80-5d53-4554-95f0-f7cf80f7c661
+
+	/// Distinct count of licensed users marked as idle in the current filter context.
+	measure 'Number of Idle Users' =
+			CALCULATE (
+			    COUNTROWS ( fact_licensed_users_current ),
+			    FILTER (
+			        fact_licensed_users_current,
+			        ISBLANK ( fact_licensed_users_current[last_activity_date] )
+			            || fact_licensed_users_current[days_inactive] >= 30
+			    )
+			)
+		formatString: 0
+		lineageTag: 6bb4ad84-562c-4f26-a5aa-8e65827859fe
+
+	measure 'Number of Report Views (Including Reports with 0 Views)' =
+			
+			CALCULATE(
+			    COUNT(fact_activities[UserId]),
+			    dim_activity_types[ActivityTypeName] = "view"
+			)
+			+ 0
+		formatString: 0
+		lineageTag: 99e93eeb-6f21-4bf8-8b97-b4e52fa42810
+
+	measure 'Number of Users' =
+			
+			COUNTROWS(fact_licensed_users_current)
+		formatString: 0
+		lineageTag: 1a122ae4-adea-4f1c-94d6-17bf0747b7c3
+
+	column Column
+		formatString: 0
+		lineageTag: 4d4e32ef-f438-401d-9df5-8510e477a756
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measures = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 8480dbec6df740f2b6dadf34c5780378
+

@@ -1,0 +1,43 @@
+relationship c0b4ea27-9686-4342-91db-c94a5c7e61ff
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_licensed_users_current.last_activity_date
+	toColumn: LocalDateTable_272e5838-4892-46ec-82a6-5bcb287b3957.Date
+
+relationship AutoDetected_d80f5da6-3e49-4a0a-b3fa-4c653012151d
+	fromColumn: fact_activities.UserId
+	toColumn: dim_users.UserId
+
+relationship AutoDetected_3f87759a-efe9-43eb-b014-80b52989052a
+	fromColumn: fact_activities.AppId
+	toColumn: dim_apps.AppId
+
+relationship AutoDetected_26337dc0-5d20-49f5-b41a-9357355446eb
+	fromColumn: fact_activities.ReportId
+	toColumn: dim_reports.ReportId
+
+relationship AutoDetected_655e41de-f808-4463-aa01-de2449b30583
+	fromColumn: fact_activities.DatasetId
+	toColumn: dim_datasets.DatasetId
+
+relationship AutoDetected_9c7d19d8-f0d7-4869-8c7f-23de48b02cbf
+	fromColumn: fact_activities.WorkspaceId
+	toColumn: dim_workspaces.WorkspaceId
+
+relationship AutoDetected_2966515c-a504-44b4-a213-f423b5917168
+	fromColumn: fact_activities.CapacityId
+	toColumn: dim_capacities.CapacityId
+
+relationship AutoDetected_2f6cb3cd-82c9-4ab2-a0f3-b3603582e912
+	fromColumn: fact_activities.activity_name
+	toColumn: dim_activity_types.ActivityName
+
+relationship ce5d0bd1-abe8-818a-26b6-23cbee552f4e
+	fromColumn: fact_activities.date_key
+	toColumn: dim_date.date_key
+
+relationship d8176660-3cbd-77e1-dc2a-c56dc8f03120
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: fact_licensed_users_current.UserId
+	toColumn: dim_users.UserId
+

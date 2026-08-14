@@ -1,0 +1,36 @@
+table dim_capacities
+	lineageTag: f20a24d4-692e-4625-8b81-d3b534cc50dc
+
+	column CapacityId
+		dataType: string
+		lineageTag: a9666708-5558-49a7-851b-07ae1d71cc23
+		summarizeBy: none
+		sourceColumn: CapacityId
+
+		annotation SummarizationSetBy = Automatic
+
+	column CapacityName
+		dataType: string
+		lineageTag: 7f3b6101-34e8-45c4-b902-f75913234b6a
+		summarizeBy: none
+		sourceColumn: CapacityName
+
+		annotation SummarizationSetBy = Automatic
+
+	column LastUpdated
+		dataType: string
+		lineageTag: b0cb91e5-3124-4521-a42c-04fe1e1fe5bd
+		summarizeBy: none
+		sourceColumn: LastUpdated
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_capacities = m
+		mode: import
+		source =
+				let
+				    Bron = Sql.Database(WarehouseHost, WarehouseDatabase),
+				    dbo_dim_capacities = Bron{[Schema="dbo",Item="dim_capacities"]}[Data]
+				in
+				    dbo_dim_capacities
+

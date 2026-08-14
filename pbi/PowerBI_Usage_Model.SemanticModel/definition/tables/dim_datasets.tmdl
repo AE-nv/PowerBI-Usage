@@ -1,0 +1,36 @@
+table dim_datasets
+	lineageTag: fc19a032-a3d6-48c7-9cb3-ce8a8560479d
+
+	column DatasetId
+		dataType: string
+		lineageTag: cbe5aeba-caa8-406a-aa3c-b6e58358ea70
+		summarizeBy: none
+		sourceColumn: DatasetId
+
+		annotation SummarizationSetBy = Automatic
+
+	column DatasetName
+		dataType: string
+		lineageTag: 946ce293-88eb-4950-99ed-36fa2901797e
+		summarizeBy: none
+		sourceColumn: DatasetName
+
+		annotation SummarizationSetBy = Automatic
+
+	column LastUpdated
+		dataType: string
+		lineageTag: 47e51f8b-91d5-4d6e-a96f-ec9fe525feb6
+		summarizeBy: none
+		sourceColumn: LastUpdated
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_datasets = m
+		mode: import
+		source =
+				let
+				    Bron = Sql.Database(WarehouseHost, WarehouseDatabase),
+				    dbo_dim_datasets = Bron{[Schema="dbo",Item="dim_datasets"]}[Data]
+				in
+				    dbo_dim_datasets
+

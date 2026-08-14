@@ -1,0 +1,61 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "32a99030d014d46405eb",
+  "position": {
+    "x": 16.649391297278619,
+    "y": 11.654573908095035,
+    "z": 1000,
+    "height": 61.602747799930896,
+    "width": 809.16041704774091,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "POWER BI ADOPTION ",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "32pt",
+                      "color": "#e66c37"
+                    }
+                  },
+                  {
+                    "value": "Dashboard Usage",
+                    "textStyle": {
+                      "fontFamily": "DIN",
+                      "fontSize": "32pt",
+                      "color": "#000000"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "fabric": {
+    "workspace_name": "<fabric-workspace-name>",
+    "workspace_id": "<fabric-workspace-id>",
+    "lakehouse_name": "bronze",
+    "warehouse_name": "gold"
+  },
+  "identity": {
+    "tenant_id": "<entra-tenant-id-guid>",
+    "key_vault_url": "https://<your-key-vault-name>.vault.azure.net/",
+    "client_id_secret_name": "usageclient",
+    "client_secret_secret_name": "usagesecret"
+  },
+  "notebooks": {
+    "activity_table_name": "pbi_activity_events",
+    "reports_inventory_table_name": "pbi_current_reports_inventory",
+    "licensed_users_table_name": "pbi_licensed_users",
+    "workspace_filter_enabled": false,
+    "max_days_backfill": 27
+  },
+  "dbt": {
+    "profile_name": "pbi_usage_db",
+    "schema": "dbo",
+    "authentication": "CLI"
+  }
+}

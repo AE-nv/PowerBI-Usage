@@ -1,0 +1,7 @@
+/// SQL analytics endpoint of the Fabric warehouse that contains the semantic model tables.
+expression 'WarehouseHost' = "<your-warehouse-sql-endpoint>" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 6f8e3c51-2d5c-4c0d-8d9a-1f1a3e4b5c6d
+
+/// Name of the Fabric warehouse that contains the semantic model tables.
+expression 'WarehouseDatabase' = "<your-warehouse-name>" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 7a9f4d62-3e6d-4d1e-9e0b-2a2b4f5c6d7e

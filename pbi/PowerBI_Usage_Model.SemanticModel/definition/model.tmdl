@@ -1,0 +1,30 @@
+model Model
+	culture: nl-BE
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-BE
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["fact_activities","fact_licensed_users_current","dim_workspaces","dim_activity_types","dim_apps","dim_capacities","dim_datasets","dim_date","dim_reports","dim_users"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table fact_activities
+ref table DateTableTemplate_a966c23a-00d9-4e31-b46b-bee98d11b2c9
+ref table fact_licensed_users_current
+ref table LocalDateTable_272e5838-4892-46ec-82a6-5bcb287b3957
+ref table dim_workspaces
+ref table dim_activity_types
+ref table dim_apps
+ref table dim_capacities
+ref table dim_datasets
+ref table dim_date
+ref table dim_reports
+ref table dim_users
+ref table _Measures
+
+ref cultureInfo nl-BE
+

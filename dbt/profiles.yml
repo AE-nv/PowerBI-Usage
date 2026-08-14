@@ -1,0 +1,11 @@
+pbi_usage_db:
+  outputs:
+    dev:
+      type: fabric
+      driver: 'ODBC Driver 18 for SQL Server'
+      host: "{{ env_var('DBT_FABRIC_HOST', 'connection_string') }}"
+      database: "{{ env_var('DBT_FABRIC_DATABASE', 'gold') }}"
+      schema: "{{ env_var('DBT_FABRIC_SCHEMA', 'dbo') }}"
+      threads: 4
+      authentication: "{{ env_var('DBT_FABRIC_AUTHENTICATION', 'CLI') }}"
+  target: dev

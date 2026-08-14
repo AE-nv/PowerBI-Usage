@@ -1,0 +1,95 @@
+table fact_activities
+	lineageTag: d1de1b4a-1557-45d2-81c6-caa9d3e5a57d
+
+	column activity_id
+		dataType: string
+		lineageTag: eac0f3de-4321-46a0-8e3e-2d0162390a25
+		summarizeBy: none
+		sourceColumn: activity_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 9981ac09-8823-44fc-afe0-53526bfe3223
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column UserId
+		dataType: string
+		lineageTag: 1fb78367-6c04-4515-8254-ee6ef57684ae
+		summarizeBy: none
+		sourceColumn: UserId
+
+		annotation SummarizationSetBy = Automatic
+
+	column AppId
+		dataType: string
+		lineageTag: b448fe83-f0b9-43e7-9b94-8376952e06c6
+		summarizeBy: none
+		sourceColumn: AppId
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReportId
+		dataType: string
+		lineageTag: f281548e-23a9-4804-9fad-39d8b9059576
+		summarizeBy: none
+		sourceColumn: ReportId
+
+		annotation SummarizationSetBy = Automatic
+
+	column DatasetId
+		dataType: string
+		lineageTag: 09e4093a-d675-4525-a9aa-0a8ba42af481
+		summarizeBy: none
+		sourceColumn: DatasetId
+
+		annotation SummarizationSetBy = Automatic
+
+	column WorkspaceId
+		dataType: string
+		lineageTag: 04e0a72e-2e96-48f4-818b-f8420008133b
+		summarizeBy: none
+		sourceColumn: WorkspaceId
+
+		annotation SummarizationSetBy = Automatic
+
+	column CapacityId
+		dataType: string
+		lineageTag: 24775bb0-ac6d-4ef0-8fb1-186b623bcceb
+		summarizeBy: none
+		sourceColumn: CapacityId
+
+		annotation SummarizationSetBy = Automatic
+
+	column activity_name
+		dataType: string
+		lineageTag: 6bc0ff32-362e-4bbb-90ab-9be5c39a5564
+		summarizeBy: none
+		sourceColumn: activity_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column ActivityTime
+		dataType: string
+		lineageTag: 5bb8dd83-9ce8-4cf4-bdeb-dadce922c3ec
+		summarizeBy: none
+		sourceColumn: ActivityTime
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_activities = m
+		mode: import
+		source =
+				let
+				    Bron = Sql.Database(WarehouseHost, WarehouseDatabase),
+				    dbo_fact_activities = Bron{[Schema="dbo",Item="fact_activities"]}[Data]
+				in
+				    dbo_fact_activities
+

@@ -1,0 +1,47 @@
+table dim_users
+	lineageTag: fc60b50b-e9ab-4d7f-a979-5b3c53dea96f
+
+	column UserId
+		dataType: string
+		lineageTag: 69dc855c-b2e2-41a8-9456-cf5e4e7fe24d
+		summarizeBy: none
+		sourceColumn: UserId
+
+		annotation SummarizationSetBy = Automatic
+
+	column UserType
+		dataType: int64
+		formatString: 0
+		lineageTag: 5dd8c122-e7d8-438a-919a-500c78706f28
+		summarizeBy: none
+		sourceColumn: UserType
+
+		annotation SummarizationSetBy = Automatic
+
+	column UserKey
+		dataType: string
+		lineageTag: 2b5d3ac5-5dc8-427e-9be3-e0d34362806a
+		summarizeBy: none
+		sourceColumn: UserKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column LastUpdated
+		dataType: string
+		lineageTag: 54ea19d1-db88-4029-872e-9ef6735057e5
+		summarizeBy: none
+		sourceColumn: LastUpdated
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_users = m
+		mode: import
+		source =
+				let
+				    Bron = Sql.Database(WarehouseHost, WarehouseDatabase),
+				    dbo_dim_users = Bron{[Schema="dbo",Item="dim_users"]}[Data]
+				in
+				    dbo_dim_users
+
+	annotation PBI_ResultType = Table
+

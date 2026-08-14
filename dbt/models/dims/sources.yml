@@ -1,0 +1,8 @@
+sources:
+  - name: lakehouse  # <--- This is the nickname you use in your SQL
+    database: "{{ var('lakehouse_name', 'bronze') }}"  # <--- This is the ACTUAL name in Fabric
+    schema: "{{ var('lakehouse_schema', 'dbo') }}"
+    tables:
+      - name: "{{ var('activity_table_name', 'pbi_activity_events') }}"  # <--- The actual table name
+      - name: "{{ var('reports_inventory_table_name', 'pbi_current_reports_inventory') }}"
+      - name: "{{ var('licensed_users_table_name', 'pbi_licensed_users') }}"

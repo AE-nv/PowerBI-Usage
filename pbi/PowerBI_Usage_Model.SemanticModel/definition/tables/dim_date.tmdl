@@ -1,0 +1,104 @@
+table dim_date
+	lineageTag: 861f8dd6-df96-402f-97b8-0d9406d7ede1
+	dataCategory: Time
+
+	column date_key
+		dataType: dateTime
+		isKey
+		formatString: Long Date
+		lineageTag: 4d87fca2-e089-4cd7-b72c-4d9df8c69b43
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column calendar_year
+		dataType: int64
+		formatString: 0
+		lineageTag: de8f2656-859c-492b-bef0-b4a3e1c0a6f8
+		summarizeBy: none
+		sourceColumn: calendar_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column calendar_month
+		dataType: int64
+		formatString: 0
+		lineageTag: b8bda0da-b315-459c-a666-ad1584401cad
+		summarizeBy: none
+		sourceColumn: calendar_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_name
+		dataType: string
+		lineageTag: 011312c8-5450-49de-af0f-8cf9f8690caa
+		summarizeBy: none
+		sourceColumn: month_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_name_short
+		dataType: string
+		lineageTag: 200a8f5c-3cb0-45d0-b974-91157c2a3912
+		summarizeBy: none
+		sourceColumn: month_name_short
+		sortByColumn: calendar_month
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column calendar_quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: 72b9fcad-db43-4b24-9b69-6be82a145be2
+		summarizeBy: none
+		sourceColumn: calendar_quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_of_week
+		dataType: int64
+		formatString: 0
+		lineageTag: 12f88f7e-53b5-4082-8ea0-33bf958b4884
+		summarizeBy: none
+		sourceColumn: day_of_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_type
+		dataType: string
+		lineageTag: 6744acea-fbe2-4354-a30c-65da39391d67
+		summarizeBy: none
+		sourceColumn: day_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_in_last_3_months
+		dataType: string
+		lineageTag: fc8ebdb1-7d4d-4efe-9f23-8ac01f9d84d0
+		summarizeBy: none
+		sourceColumn: is_in_last_3_months
+
+		annotation SummarizationSetBy = Automatic
+
+	column relative_period_bucket
+		dataType: string
+		lineageTag: 9de7d3c4-2b82-44d8-8cf6-8aad5ec8ed05
+		summarizeBy: none
+		sourceColumn: relative_period_bucket
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_date = m
+		mode: import
+		source =
+				let
+				    Bron = Sql.Database(WarehouseHost, WarehouseDatabase),
+				    dbo_dim_date = Bron{[Schema="dbo",Item="dim_date"]}[Data]
+				in
+				    dbo_dim_date
+

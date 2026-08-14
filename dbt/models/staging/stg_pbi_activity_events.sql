@@ -1,0 +1,20 @@
+SELECT DISTINCT
+    Id,
+    CreationTime AS ActivityTime,
+    CAST(CreationTime AS DATE) AS date_key,
+    UserId,
+    AppId,
+    DatasetId,
+    ReportId,
+    Activity,
+    UserType,
+    UserKey,
+    AppName,
+    DatasetName,
+    ReportName,
+    CapacityId,
+    CapacityName,
+    WorkspaceId,
+    WorkSpaceName as WorkspaceName,
+    ArtifactKind
+FROM {{ source('lakehouse', 'pbi_activity_events') }}
