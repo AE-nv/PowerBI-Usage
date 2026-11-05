@@ -38,6 +38,6 @@ relationship ce5d0bd1-abe8-818a-26b6-23cbee552f4e
 relationship d8176660-3cbd-77e1-dc2a-c56dc8f03120
 	crossFilteringBehavior: bothDirections
 	fromCardinality: one
-	fromColumn: fact_licensed_users_current.UserId
+	fromColumn: fact_licensed_users_current.UserPrincipalName
 	toColumn: dim_users.UserId
 

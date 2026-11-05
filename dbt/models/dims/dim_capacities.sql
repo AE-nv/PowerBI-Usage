@@ -5,7 +5,7 @@ WITH capacity_versions AS (
         ActivityTime,
         ROW_NUMBER() OVER (
             PARTITION BY CapacityId, CapacityName
-            ORDER BY ActivityTime ASC
+            ORDER BY ActivityTime DESC
         ) AS rn_per_name
     FROM {{ ref('stg_pbi_activity_events') }}
     WHERE CapacityId IS NOT NULL

@@ -74,8 +74,8 @@ SELECT
         ELSE 'No'
     END AS is_in_last_3_months,
     CASE
-        WHEN dmn.date_day BETWEEN dw.last_1_month_start AND dw.today THEN 'Yes'
-        WHEN dmn.date_day BETWEEN dw.last_2_months_start AND dw.today THEN 'Yes'
+        WHEN dmn.date_day BETWEEN dw.last_1_month_start AND dw.today THEN 'Last 1 month'
+        WHEN dmn.date_day BETWEEN dw.last_2_months_start AND dw.today THEN 'Last 2 months'
         WHEN dmn.date_day BETWEEN dw.last_3_months_start AND dw.today THEN 'Last 3 months'
         WHEN dmn.date_day BETWEEN dw.last_4_months_start AND dw.today THEN 'Last 4 months'
         WHEN dmn.date_day BETWEEN dw.last_6_months_start AND dw.today THEN 'Last 6 months'

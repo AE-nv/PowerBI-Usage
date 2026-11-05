@@ -167,7 +167,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Bottem 10'"
+                  "Value": "'Bottom 10'"
                 }
               }
             },

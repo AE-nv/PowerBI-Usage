@@ -23,10 +23,10 @@
                       "Entity": "fact_licensed_users_current"
                     }
                   },
-                  "Property": "UserId"
+                  "Property": "UserPrincipalName"
                 }
               },
-              "queryRef": "fact_licensed_users_current.UserId",
+              "queryRef": "fact_licensed_users_current.UserPrincipalName",
               "nativeQueryRef": "User Email",
               "displayName": "User Email"
             },

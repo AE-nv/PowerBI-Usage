@@ -5,7 +5,7 @@ WITH workspace_versions AS (
         ActivityTime,
         ROW_NUMBER() OVER (
             PARTITION BY WorkspaceId, WorkspaceName
-            ORDER BY ActivityTime ASC
+            ORDER BY ActivityTime DESC
         ) AS rn_per_name
     FROM {{ ref('stg_pbi_activity_events') }}
     WHERE WorkspaceId IS NOT NULL

@@ -2,7 +2,7 @@ SELECT DISTINCT
     Id,
     CreationTime AS ActivityTime,
     CAST(CreationTime AS DATE) AS date_key,
-    UserId,
+    LOWER(UserId) AS UserId,
     AppId,
     DatasetId,
     ReportId,
