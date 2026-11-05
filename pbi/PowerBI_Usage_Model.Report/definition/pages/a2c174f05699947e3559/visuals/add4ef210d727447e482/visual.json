@@ -237,7 +237,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Evolution of Number of Views by Month'"
+                  "Value": "'Evolution of Number of Exports by Month'"
                 }
               }
             }

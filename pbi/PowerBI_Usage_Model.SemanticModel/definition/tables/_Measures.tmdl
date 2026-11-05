@@ -53,79 +53,6 @@ table _Measures
 		formatString: 0
 		lineageTag: 0667bbcb-b845-496a-9187-1fc3ff778fea
 
-	/// Difference between report views in the mapped previous period bucket and the current selected period.
-	measure 'Number of Report Views Previous Period' = ```
-			
-			VAR SelectedPeriod = SELECTEDVALUE(dim_date[relative_period_bucket])
-			
-			VAR ViewsCurrentPeriod = [Number of Report Views]
-			
-			VAR PreviousPeriodBucket = 
-			SWITCH( 
-			    SelectedPeriod,
-			    "Last 3 months", "Last 6 months",
-			    "Last 6 months", "Last 1 year",
-			    "Last 1 year", "Last 2 years"
-			)
-			
-			VAR ViewsPreviousPeriodBucket =
-			CALCULATE(
-			    [Number of Report Views],
-			    REMOVEFILTERS(dim_date[relative_period_bucket]),
-			    dim_date[relative_period_bucket] = PreviousPeriodBucket
-			)
-			
-			
-			RETURN
-			ViewsPreviousPeriodBucket - ViewsCurrentPeriod
-			```
-		formatString: 0
-		lineageTag: db508557-2b79-411e-bb2b-9c5f463759a5
-
-	/// Difference between unique report viewers in the mapped previous period bucket and the current selected period.
-	measure 'Number of Unique Report Viewers Previous Period' = ```
-			
-			-- Previous Period is based on what is selected in the relative_period_bucket. 
-			VAR SelectedPeriod = SELECTEDVALUE(dim_date[relative_period_bucket])
-			
-			VAR ViewersCurrentPeriod = [Number of Unique Report Viewers]
-			
-			VAR PreviousPeriodBucket = 
-			SWITCH( 
-			    SelectedPeriod,
-			    "Last 3 months", "Last 6 months",
-			    "Last 6 months", "Last 1 year",
-			    "Last 1 year", "Last 2 years"
-			)
-			
-			VAR ViewersPreviousPeriodBucket =
-			CALCULATE(
-			    [Number of Unique Report Viewers],
-			    REMOVEFILTERS(dim_date[relative_period_bucket]),
-			    dim_date[relative_period_bucket] = PreviousPeriodBucket
-			)
-			
-			
-			RETURN
-			ViewersPreviousPeriodBucket - ViewersCurrentPeriod
-			```
-		formatString: 0
-		lineageTag: adc4d84c-8ef2-4a29-bab4-6c5aa203dd12
-
-	/// Percentage change in report views versus the mapped previous period.
-	measure 'Number of Views: Current Period vs Previous Period %' =
-			
-			([Number of Report Views] - [Number of Report Views Previous Period]) / [Number of Report Views Previous Period]
-		formatString: 0.00%;-0.00%;0.00%
-		lineageTag: 57da1c39-b6ec-4639-a397-d31e17777cab
-
-	/// Percentage change in unique report viewers versus the mapped previous period.
-	measure 'Number of Unique Report Viewers: Current Period vs Previous Period %' =
-			
-			([Number of Unique Report Viewers] - [Number of Unique Report Viewers Previous Period]) / [Number of Unique Report Viewers Previous Period]
-		formatString: 0.00%;-0.00%;0.00%
-		lineageTag: 0dbe1bf1-d5c5-4c2e-8641-8f16ab1ca270
-
 	/// Total number of export events in the current filter context.
 	measure 'Number of Exports' =
 			
@@ -135,35 +62,6 @@ table _Measures
 			)
 		formatString: 0
 		lineageTag: 6801f7ac-ff37-46d2-acd3-75b89f06a586
-
-	/// Difference between exports in the mapped previous period bucket and the current selected period.
-	measure 'Number of Exports Previous Period' = ```
-			
-			VAR SelectedPeriod = SELECTEDVALUE(dim_date[relative_period_bucket])
-			
-			// Swap the base measure here to your new Export measure
-			VAR ExportsCurrentPeriod = [Number of Exports]
-			
-			VAR PreviousPeriodBucket = 
-			SWITCH( 
-			    SelectedPeriod,
-			    "Last 3 months", "Last 6 months",
-			    "Last 6 months", "Last 1 year",
-			    "Last 1 year", "Last 2 years"
-			)
-			
-			VAR ExportsPreviousPeriodBucket =
-			CALCULATE(
-			    [Number of Exports],
-			    REMOVEFILTERS(dim_date[relative_period_bucket]),
-			    dim_date[relative_period_bucket] = PreviousPeriodBucket
-			)
-			
-			RETURN
-			ExportsPreviousPeriodBucket - ExportsCurrentPeriod
-			```
-		formatString: 0
-		lineageTag: 125a79cf-867a-41ba-b103-de3c3b06e63e
 
 	/// Distinct count of users who exported at least one report in the current filter context.
 	measure 'Number of Unique Export Users' =

@@ -5,7 +5,7 @@ WITH app_versions AS (
         ActivityTime,
         ROW_NUMBER() OVER (
             PARTITION BY AppId, AppName
-            ORDER BY ActivityTime ASC
+            ORDER BY ActivityTime DESC
         ) AS rn_per_name
     FROM {{ ref('stg_pbi_activity_events') }}
     WHERE AppId IS NOT NULL

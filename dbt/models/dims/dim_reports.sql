@@ -33,8 +33,8 @@ SELECT
     lr.ReportName,
     lr.ActivityTime AS LastUpdated,
     CASE
-        WHEN cr.report_id IS NULL THEN 'No'
-        ELSE 'Yes'
+        WHEN cr.report_id IS NULL THEN 'Yes'
+        ELSE 'No'
     END AS IsDeleted
 FROM latest_name lr
 LEFT JOIN current_reports cr

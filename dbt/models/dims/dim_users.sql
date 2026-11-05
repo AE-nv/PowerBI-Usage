@@ -6,7 +6,7 @@ WITH user_versions AS (
         ActivityTime,
         ROW_NUMBER() OVER (
             PARTITION BY UserId, UserType, UserKey
-            ORDER BY ActivityTime ASC
+            ORDER BY ActivityTime DESC
         ) AS rn_per_version
     FROM {{ ref('stg_pbi_activity_events') }}
     WHERE UserId IS NOT NULL

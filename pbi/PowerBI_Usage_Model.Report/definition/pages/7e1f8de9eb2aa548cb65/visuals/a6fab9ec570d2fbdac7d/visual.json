@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "dim_users"
+                      "Entity": "fact_licensed_users_current"
                     }
                   },
-                  "Property": "UserId"
+                  "Property": "UserPrincipalName"
                 }
               },
-              "queryRef": "dim_users.UserId",
-              "nativeQueryRef": "UserId",
+              "queryRef": "fact_licensed_users_current.UserPrincipalName",
+              "nativeQueryRef": "UserPrincipalName",
               "active": true
             }
           ]

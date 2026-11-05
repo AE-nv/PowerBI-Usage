@@ -1,5 +1,5 @@
 SELECT DISTINCT
     UserId,
     DisplayName,
-    UserPrincipalName
+    LOWER(UserPrincipalName) AS UserPrincipalName
 FROM {{ source('lakehouse', 'pbi_licensed_users') }}

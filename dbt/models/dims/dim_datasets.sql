@@ -5,7 +5,7 @@ WITH dataset_versions AS (
         ActivityTime,
         ROW_NUMBER() OVER (
             PARTITION BY DatasetId, DatasetName
-            ORDER BY ActivityTime ASC
+            ORDER BY ActivityTime DESC
         ) AS rn_per_name
     FROM {{ ref('stg_pbi_activity_events') }}
     WHERE DatasetId IS NOT NULL
