@@ -516,7 +516,7 @@ $suffix = $NameSuffix
 $notebookMap = @(
     @{ Path = "get_usage_data.ipynb"; Name = "get_usage_data$suffix" },
     @{ Path = "get_current_reports_inventory.ipynb"; Name = "get_current_reports_inventory$suffix" },
-    @{ Path = "get_powerbi_license_data.ipynb"; Name = "get_powerbi_license_data$suffix" }
+    @{ Path = "get_powerbi_licensing_data.ipynb"; Name = "get_powerbi_licensing_data$suffix" }
 )
 
 $lakehouseName = "$($config.fabric.lakehouse_name)$suffix"

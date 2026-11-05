@@ -6,7 +6,7 @@ A reusable Fabric + Power BI solution for collecting, transforming, and reportin
 
 - `get_usage_data.ipynb`: incremental ingestion of Power BI Admin Activity Events into a Fabric lakehouse Delta table
 - `get_current_reports_inventory.ipynb`: snapshot of currently existing Power BI reports
-- `get_powerbi_license_data.ipynb`: snapshot of Power BI licensed users
+- `get_powerbi_licensing_data.ipynb`: snapshot of Power BI licensed users
 - `dbt/`: transformations from lakehouse tables into warehouse dimensions and facts
 - `pbi/`: PBIP project for the semantic model and report
 
@@ -335,3 +335,7 @@ This repo is not yet a one-click deployment accelerator. It is a reusable soluti
 - [Power BI Activity Events API](https://learn.microsoft.com/en-us/rest/api/power-bi/admin/get-activity-events)
 - [Power BI REST API](https://learn.microsoft.com/en-us/rest/api/power-bi/)
 - [Microsoft Graph overview](https://learn.microsoft.com/en-us/graph/overview)
+
+## License
+
+This project is licensed under the MIT License – see [LICENSE](LICENSE).
